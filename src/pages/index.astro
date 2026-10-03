@@ -7,83 +7,273 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yellow Pages Gorontalo - Godex</title>
+  <title>Godex - Direktori & Yellow Pages Gorontalo</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
 </head>
-<body class="bg-gray-100 p-6">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-3xl font-bold text-gray-800">Direktori Usaha Gorontalo</h1>
-        <p class="text-gray-600">Temukan kontak dan alamat tempat usaha di Gorontalo.</p>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Navbar / Header -->
+  <header class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center border border-white/20">
+          <i class="fa-solid fa-compass text-amber-300 text-xl"></i>
+        </div>
+        <div>
+          <span class="text-2xl font-extrabold tracking-tight">Godex<span class="text-amber-300">.</span></span>
+          <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full font-medium ml-2 hidden sm:inline-block">Gorontalo Directory</span>
+        </div>
       </div>
-      <a href="/tambah" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-md text-sm shadow-sm">
-        + Tambah Tempat
+      <a href="/tambah" class="inline-flex items-center space-x-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-4 py-2.5 rounded-xl shadow-md transition transform active:scale-95 text-sm">
+        <i class="fa-solid fa-plus"></i>
+        <span>Tambah Tempat</span>
       </a>
     </div>
+  </header>
 
-    <!-- State Loading -->
-    <div id="loading" class="text-center py-10 text-gray-500 font-medium">
-      Memuat data tempat usaha...
+  <!-- Hero & Search Section -->
+  <section class="bg-indigo-900 text-white pt-10 pb-16 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10 space-y-4">
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Cari Tempat Usaha & Layanan di Gorontalo</h1>
+      <p class="text-indigo-200 text-sm sm:text-base max-w-xl mx-auto">Temukan nomor telepon, alamat lengkap, dan lokasi Google Maps kafe, apotek, penginapan, hingga layanan publik secara cepat.</p>
+      
+      <!-- Search Box -->
+      <div class="pt-4 max-w-2xl mx-auto">
+        <div class="relative flex items-center bg-white rounded-2xl shadow-xl overflow-hidden p-1">
+          <i class="fa-solid fa-magnifying-glass text-slate-400 pl-4 pr-2 text-lg"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Ketik nama tempat, jalan, atau kategori..." 
+            class="w-full py-3 px-2 text-slate-800 placeholder-slate-400 focus:outline-none text-sm sm:text-base"
+          >
+          <button id="clearSearch" class="hidden text-slate-400 hover:text-slate-600 px-3 text-sm">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 -mt-8 relative z-20 flex-grow pb-16">
+    
+    <!-- Filter Kategori Tabs -->
+    <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-100 mb-8 overflow-x-auto no-scrollbar">
+      <div id="categoryFilters" class="flex space-x-2 min-w-max">
+        <button class="cat-btn active bg-indigo-600 text-white font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Semua">
+          <i class="fa-solid fa-border-all mr-1.5"></i> Semua
+        </button>
+        <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Kafe">
+          <i class="fa-solid fa-mug-hot mr-1.5 text-amber-600"></i> Kafe
+        </button>
+        <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Apotek">
+          <i class="fa-solid fa-capsules mr-1.5 text-emerald-600"></i> Apotek
+        </button>
+        <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Hotel dan Penginapan">
+          <i class="fa-solid fa-hotel mr-1.5 text-blue-600"></i> Hotel & Penginapan
+        </button>
+        <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Jasa Transportasi">
+          <i class="fa-solid fa-van-shuttle mr-1.5 text-purple-600"></i> Transportasi
+        </button>
+        <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Lainnya">
+          <i class="fa-solid fa-store mr-1.5 text-rose-600"></i> Lainnya
+        </button>
+      </div>
     </div>
 
-    <!-- Grid Tempat Usaha -->
-    <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden"></div>
-
-    <!-- State Kosong -->
-    <div id="emptyMsg" class="text-gray-500 text-center py-10 hidden">
-      Belum ada data tempat usaha.
+    <!-- Header Status & Info -->
+    <div class="flex items-center justify-between mb-4 px-1">
+      <h2 class="text-lg font-bold text-slate-800 flex items-center space-x-2">
+        <span>Daftar Tempat</span>
+        <span id="placeCount" class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full">...</span>
+      </h2>
     </div>
-  </div>
+
+    <!-- Loading State Skeleton -->
+    <div id="loadingSkeleton" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {[1, 2, 3, 4, 5, 6].map(() => (
+        <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm animate-pulse space-y-4">
+          <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+          <div class="h-6 bg-slate-200 rounded w-3/4"></div>
+          <div class="h-4 bg-slate-200 rounded w-full"></div>
+          <div class="pt-4 flex justify-between">
+            <div class="h-8 bg-slate-200 rounded w-1/3"></div>
+            <div class="h-8 bg-slate-200 rounded w-1/3"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Grid Cards Usaha -->
+    <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 hidden"></div>
+
+    <!-- State Kosong / Tidak Ditemukan -->
+    <div id="emptyState" class="hidden bg-white rounded-2xl p-12 text-center border border-slate-100 shadow-sm my-6">
+      <div class="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-1">Tidak Ada Data Ditemukan</h3>
+      <p class="text-slate-500 text-sm max-w-sm mx-auto">Coba gunakan kata kunci lain atau pilih kategori yang berbeda.</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+    <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
+      <p>&copy; 2026 Godex Yellow Pages Gorontalo. Data terintegrasi secara dinamis.</p>
+    </div>
+  </footer>
 
   <script define:vars={{ SCRIPT_URL }}>
-    async function loadPlaces() {
-      const loadingEl = document.getElementById('loading');
-      const gridEl = document.getElementById('placesGrid');
-      const emptyEl = document.getElementById('emptyMsg');
+    let allPlaces = [];
+    let currentCategory = "Semua";
+    let searchQuery = "";
 
-      try {
-        const response = await fetch(SCRIPT_URL, { redirect: 'follow' });
-        const places = await response.json();
+    const skeletonEl = document.getElementById('loadingSkeleton');
+    const gridEl = document.getElementById('placesGrid');
+    const emptyEl = document.getElementById('emptyState');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const countEl = document.getElementById('placeCount');
 
-        loadingEl.classList.add('hidden');
+    function getCategoryBadge(cat) {
+      const colors = {
+        'Kafe': 'bg-amber-50 text-amber-700 border-amber-200',
+        'Apotek': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        'Hotel dan Penginapan': 'bg-blue-50 text-blue-700 border-blue-200',
+        'Jasa Transportasi': 'bg-purple-50 text-purple-700 border-purple-200',
+        'Lainnya': 'bg-rose-50 text-rose-700 border-rose-200'
+      };
+      return colors[cat] || 'bg-slate-100 text-slate-700 border-slate-200';
+    }
 
-        if (places && places.length > 0) {
-          gridEl.innerHTML = places.map(place => `
-            <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
-              <span class="text-xs font-semibold uppercase tracking-wide bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                ${place['Kategori'] || 'Lainnya'}
-              </span>
-              <h2 class="text-xl font-bold text-gray-800 mt-2">${place['Nama Tempat'] || '-'}</h2>
-              <p class="text-gray-600 text-sm mt-1">${place['Alamat Lengkap'] || '-'}</p>
-              
-              <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-700">No: ${place['Nomor Telp'] || '-'}</span>
+    function formatTelpLink(telp) {
+      if (!telp) return '#';
+      const cleanNum = telp.replace(/[^0-9]/g, '');
+      if (cleanNum.startsWith('08')) {
+        return `https://wa.me/62${cleanNum.substring(1)}`;
+      }
+      return `tel:${cleanNum}`;
+    }
+
+    function renderPlaces() {
+      const filtered = allPlaces.filter(place => {
+        const matchesCategory = currentCategory === "Semua" || place['Kategori'] === currentCategory;
+        const query = searchQuery.toLowerCase();
+        const matchesSearch = !query || 
+          (place['Nama Tempat'] && place['Nama Tempat'].toLowerCase().includes(query)) ||
+          (place['Alamat Lengkap'] && place['Alamat Lengkap'].toLowerCase().includes(query)) ||
+          (place['Kategori'] && place['Kategori'].toLowerCase().includes(query));
+        
+        return matchesCategory && matchesSearch;
+      });
+
+      countEl.textContent = `${filtered.length} Tempat`;
+
+      if (filtered.length === 0) {
+        gridEl.classList.add('hidden');
+        emptyEl.classList.remove('hidden');
+      } else {
+        emptyEl.classList.add('hidden');
+        gridEl.classList.remove('hidden');
+
+        gridEl.innerHTML = filtered.map(place => {
+          const telpUrl = formatTelpLink(place['Nomor Telp']);
+          const isWA = telpUrl.includes('wa.me');
+
+          return `
+            <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4 group">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${getCategoryBadge(place['Kategori'])}">
+                    ${place['Kategori'] || 'Lainnya'}
+                  </span>
+                </div>
                 
+                <h3 class="text-lg font-bold text-slate-800 group-hover:text-indigo-600 transition line-clamp-1">
+                  ${place['Nama Tempat'] || 'Tanpa Nama'}
+                </h3>
+                
+                <p class="text-xs text-slate-500 mt-2 flex items-start space-x-1.5 leading-relaxed">
+                  <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
+                  <span>${place['Alamat Lengkap'] || 'Alamat tidak tersedia'}</span>
+                </p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                ${place['Nomor Telp'] ? `
+                  <a href="${telpUrl}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl ${isWA ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} transition">
+                    <i class="${isWA ? 'fa-brands fa-whatsapp text-emerald-600 text-sm' : 'fa-solid fa-phone text-slate-500'}"></i>
+                    <span>${place['Nomor Telp']}</span>
+                  </a>
+                ` : '<span></span>'}
+
                 ${place['Link Google Maps'] ? `
-                  <a 
-                    href="${place['Link Google Maps']}" 
-                    target="_blank" 
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded font-medium"
-                  >
-                    Buka Maps &rarr;
+                  <a href="${place['Link Google Maps']}" target="_blank" class="inline-flex items-center space-x-1 text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-2 rounded-xl transition">
+                    <span>Maps</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                   </a>
                 ` : ''}
               </div>
             </div>
-          `).join('');
-
-          gridEl.classList.remove('hidden');
-        } else {
-          emptyEl.classList.remove('hidden');
-        }
-      } catch (err) {
-        console.error("Gagal memuat data:", err);
-        loadingEl.textContent = "Gagal memuat data tempat. Periksa koneksi atau URL Apps Script.";
+          `;
+        }).join('');
       }
     }
 
-    loadPlaces();
+    async function init() {
+      try {
+        const res = await fetch(SCRIPT_URL, { redirect: 'follow' });
+        allPlaces = await res.json();
+        
+        skeletonEl.classList.add('hidden');
+        renderPlaces();
+      } catch (err) {
+        console.error(err);
+        skeletonEl.innerHTML = `<p class="col-span-full text-center text-rose-500 font-semibold py-8">Gagal memuat data dari database. Silakan refresh halaman.</p>`;
+      }
+    }
+
+    // Event Listeners Filter
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.cat-btn').forEach(b => {
+          b.className = "cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition";
+        });
+        
+        const target = e.currentTarget;
+        target.className = "cat-btn active bg-indigo-600 text-white font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition";
+        
+        currentCategory = target.getAttribute('data-cat');
+        renderPlaces();
+      });
+    });
+
+    // Event Listener Search
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      clearSearchBtn.classList.toggle('hidden', !searchQuery);
+      renderPlaces();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.classList.add('hidden');
+      renderPlaces();
+    });
+
+    init();
   </script>
 </body>
 </html>
