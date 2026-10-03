@@ -8,23 +8,15 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Godex - Direktori & Yellow Pages Gorontalo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
   <!-- Navbar / Header -->
   <header class="bg-gradient-to-r from-indigo-700 via-indigo-600 to-blue-600 text-white shadow-lg sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center border border-white/20">
-          <i class="fa-solid fa-compass text-amber-300 text-xl"></i>
+        <div class="w-10 h-10 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center border border-white/20 font-bold text-amber-300 text-xl">
+          G
         </div>
         <div>
           <span class="text-2xl font-extrabold tracking-tight">Godex<span class="text-amber-300">.</span></span>
@@ -32,15 +24,13 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
         </div>
       </div>
       <a href="/tambah" class="inline-flex items-center space-x-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold px-4 py-2.5 rounded-xl shadow-md transition transform active:scale-95 text-sm">
-        <i class="fa-solid fa-plus"></i>
-        <span>Tambah Tempat</span>
+        <span>+ Tambah Tempat</span>
       </a>
     </div>
   </header>
 
   <!-- Hero & Search Section -->
   <section class="bg-indigo-900 text-white pt-10 pb-16 px-4 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
     <div class="max-w-3xl mx-auto text-center relative z-10 space-y-4">
       <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Cari Tempat Usaha & Layanan di Gorontalo</h1>
       <p class="text-indigo-200 text-sm sm:text-base max-w-xl mx-auto">Temukan nomor telepon, alamat lengkap, dan lokasi Google Maps kafe, apotek, penginapan, hingga layanan publik secara cepat.</p>
@@ -48,7 +38,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
       <!-- Search Box -->
       <div class="pt-4 max-w-2xl mx-auto">
         <div class="relative flex items-center bg-white rounded-2xl shadow-xl overflow-hidden p-1">
-          <i class="fa-solid fa-magnifying-glass text-slate-400 pl-4 pr-2 text-lg"></i>
+          <span class="pl-4 pr-2 text-slate-400">🔍</span>
           <input 
             type="text" 
             id="searchInput" 
@@ -56,7 +46,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
             class="w-full py-3 px-2 text-slate-800 placeholder-slate-400 focus:outline-none text-sm sm:text-base"
           >
           <button id="clearSearch" class="hidden text-slate-400 hover:text-slate-600 px-3 text-sm">
-            <i class="fa-solid fa-xmark"></i>
+            ✕
           </button>
         </div>
       </div>
@@ -67,25 +57,25 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
   <main class="max-w-6xl mx-auto px-4 sm:px-6 -mt-8 relative z-20 flex-grow pb-16">
     
     <!-- Filter Kategori Tabs -->
-    <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-100 mb-8 overflow-x-auto no-scrollbar">
+    <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-100 mb-8 overflow-x-auto">
       <div id="categoryFilters" class="flex space-x-2 min-w-max">
         <button class="cat-btn active bg-indigo-600 text-white font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Semua">
-          <i class="fa-solid fa-border-all mr-1.5"></i> Semua
+          Semua
         </button>
         <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Kafe">
-          <i class="fa-solid fa-mug-hot mr-1.5 text-amber-600"></i> Kafe
+          ☕ Kafe
         </button>
         <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Apotek">
-          <i class="fa-solid fa-capsules mr-1.5 text-emerald-600"></i> Apotek
+          💊 Apotek
         </button>
         <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Hotel dan Penginapan">
-          <i class="fa-solid fa-hotel mr-1.5 text-blue-600"></i> Hotel & Penginapan
+          🏨 Hotel & Penginapan
         </button>
         <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Jasa Transportasi">
-          <i class="fa-solid fa-van-shuttle mr-1.5 text-purple-600"></i> Transportasi
+          🚌 Transportasi
         </button>
         <button class="cat-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-xs sm:text-sm transition" data-cat="Lainnya">
-          <i class="fa-solid fa-store mr-1.5 text-rose-600"></i> Lainnya
+          🏪 Lainnya
         </button>
       </div>
     </div>
@@ -118,9 +108,6 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
 
     <!-- State Kosong / Tidak Ditemukan -->
     <div id="emptyState" class="hidden bg-white rounded-2xl p-12 text-center border border-slate-100 shadow-sm my-6">
-      <div class="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
       <h3 class="text-lg font-bold text-slate-800 mb-1">Tidak Ada Data Ditemukan</h3>
       <p class="text-slate-500 text-sm max-w-sm mx-auto">Coba gunakan kata kunci lain atau pilih kategori yang berbeda.</p>
     </div>
@@ -159,7 +146,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
 
     function formatTelpLink(telp) {
       if (!telp) return '#';
-      const cleanNum = telp.replace(/[^0-9]/g, '');
+      const cleanNum = String(telp).replace(/[^0-9]/g, '');
       if (cleanNum.startsWith('08')) {
         return `https://wa.me/62${cleanNum.substring(1)}`;
       }
@@ -171,9 +158,9 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
         const matchesCategory = currentCategory === "Semua" || place['Kategori'] === currentCategory;
         const query = searchQuery.toLowerCase();
         const matchesSearch = !query || 
-          (place['Nama Tempat'] && place['Nama Tempat'].toLowerCase().includes(query)) ||
-          (place['Alamat Lengkap'] && place['Alamat Lengkap'].toLowerCase().includes(query)) ||
-          (place['Kategori'] && place['Kategori'].toLowerCase().includes(query));
+          (place['Nama Tempat'] && String(place['Nama Tempat']).toLowerCase().includes(query)) ||
+          (place['Alamat Lengkap'] && String(place['Alamat Lengkap']).toLowerCase().includes(query)) ||
+          (place['Kategori'] && String(place['Kategori']).toLowerCase().includes(query));
         
         return matchesCategory && matchesSearch;
       });
@@ -205,7 +192,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
                 </h3>
                 
                 <p class="text-xs text-slate-500 mt-2 flex items-start space-x-1.5 leading-relaxed">
-                  <i class="fa-solid fa-location-dot text-slate-400 mt-0.5 shrink-0"></i>
+                  <span class="shrink-0">📍</span>
                   <span>${place['Alamat Lengkap'] || 'Alamat tidak tersedia'}</span>
                 </p>
               </div>
@@ -213,15 +200,13 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgizXSrGnrjND4XS0u7
               <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                 ${place['Nomor Telp'] ? `
                   <a href="${telpUrl}" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl ${isWA ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} transition">
-                    <i class="${isWA ? 'fa-brands fa-whatsapp text-emerald-600 text-sm' : 'fa-solid fa-phone text-slate-500'}"></i>
-                    <span>${place['Nomor Telp']}</span>
+                    <span>${isWA ? '💬 WA:' : '📞'} ${place['Nomor Telp']}</span>
                   </a>
                 ` : '<span></span>'}
 
                 ${place['Link Google Maps'] ? `
                   <a href="${place['Link Google Maps']}" target="_blank" class="inline-flex items-center space-x-1 text-xs font-semibold bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-2 rounded-xl transition">
-                    <span>Maps</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    <span>Maps ↗</span>
                   </a>
                 ` : ''}
               </div>
