@@ -1,0 +1,90 @@
+[
+  {
+    "Nama Tempat": "Everyday Coffee",
+    "Alamat Lengkap": "Depan Bank Sinarmas, Jl. Prof. Dr. H.B. Jassin, Kelurahan Limba U Dua, Kecamatan Kota Selatan, Kota Gorontalo",
+    "Foto": "",
+    "Kategori": "Kafe",
+    "Link Google Maps": "https://maps.app.goo.gl/4sAfQetxS8hxURtk6",
+    "Nomor Telp/WhatsApp": "085234459325"
+  },
+  {
+    "Nama Tempat": "Kitchenbox Gorontalo",
+    "Alamat Lengkap": "Jl. Panjaitan, depan Alfamidi Super Nani Wartabone, Kota Gorontalo, Gorontalo",
+    "Foto": "",
+    "Kategori": "Kafe",
+    "Link Google Maps": "https://maps.app.goo.gl/3ePazGeNxjHMCPTS9",
+    "Nomor Telp/WhatsApp": "+62 822-9673-2529"
+  },
+  {
+    "Nama Tempat": "Katha Space",
+    "Alamat Lengkap": "Jl. Raja Eyato No.356, Molosipat W, Kec. Kota Bar., Kota Gorontalo, Gorontalo 94134",
+    "Foto": "",
+    "Kategori": "Kafe",
+    "Link Google Maps": "https://maps.app.goo.gl/bsEyJ9DEEKgCbccW8",
+    "Nomor Telp/WhatsApp": 6285188326584
+  },
+  {
+    "Nama Tempat": "PT Sifahyu Setia Abadi (Rental Mobil & Taxi Bandara Gorontalo)",
+    "Alamat Lengkap": "Blok C, Jl. Sirsak Perumnas No. 397, Tomulabutao Selatan, Kecamatan Dungingi, Kota Gorontalo, Gorontalo 96138",
+    "Foto": "",
+    "Kategori": "Jasa Transportasi",
+    "Link Google Maps": "https://www.google.com/maps/place/PT.+SIFAHYU+SETIA+ABADI+%28RENTAL+MOBIL+%26+TAXI+BANDARA+GORONTALO%29/@0.5436348,122.9940394,13z/data=!4m9!1m2!2m1!1sssarentcargorontalo!3m5!1s0x32792c818bc8100d:0xcf0a36fd0b510d3c!8m2!3d0.5696081!4d123.0414949!16s%2Fg%2F11c6rt3fjk",
+    "Nomor Telp/WhatsApp": "+62 852-4081-2792"
+  },
+  {
+    "Nama Tempat": "Tanjung Perintis Coffee & Eatery",
+    "Alamat Lengkap": "Kompleks Danau Perintis, Kecamatan Suwawa, Kabupaten Bone Bolango, Gorontalo",
+    "Foto": "",
+    "Kategori": "Kafe",
+    "Link Google Maps": "https://www.google.com/maps/search/?api=1&query=Tanjung+Perintis+Coffee+%26+Eatery+Gorontalo",
+    "Nomor Telp/WhatsApp": "+62 823-2569-3870"
+  },
+  {
+    "Nama Tempat": "Aston Gorontalo Hotel & Convention Center",
+    "Alamat Lengkap": "Jl. Manggis No.88, Libuo, Kec. Dungingi, Kota Gorontalo, Gorontalo 96136",
+    "Foto": "",
+    "Kategori": "Hotel dan Penginapan",
+    "Link Google Maps": "https://maps.app.goo.gl/cC8zViAs739QoGZ69",
+    "Nomor Telp/WhatsApp": "085876958888"
+  },
+  {
+    "Nama Tempat": "Hotel Amaris Gorontalo",
+    "Alamat Lengkap": "Jl. Sultan Botutihe No.37, Ipilo, Kec. Kota Tim., Kota Gorontalo, Gorontalo 96114",
+    "Foto": "",
+    "Kategori": "Hotel dan Penginapan",
+    "Link Google Maps": "https://maps.app.goo.gl/9WAza8T6QEbgv6K26",
+    "Nomor Telp/WhatsApp": "0435830773"
+  },
+  {
+    "Nama Tempat": "APOTEK WUNEMO",
+    "Alamat Lengkap": "G2VV+77W, Jl. Raja Eyato, Molosipat W, Kec. Kota Bar., Kota Gorontalo, Gorontalo 96134",
+    "Foto": "",
+    "Kategori": "Apotek",
+    "Link Google Maps": "https://maps.app.goo.gl/itACj8XUaEpG3s9N7",
+    "Nomor Telp/WhatsApp": "087856695225"
+  },
+  {
+    "Nama Tempat": "Apotek Kimia Farma 272 Masjid Baiturahman",
+    "Alamat Lengkap": "Jl. Sultan Botutihe No.1, Heledulaa Sel., Kec. Kota Tim., Kota Gorontalo, Gorontalo 96114",
+    "Foto": "",
+    "Kategori": "Apotek",
+    "Link Google Maps": "https://maps.app.goo.gl/ehMeko8tHxwJJNin7",
+    "Nomor Telp/WhatsApp": "081110678514"
+  },
+  {
+    "Nama Tempat": "Rumah Sakit Bhayangkara",
+    "Alamat Lengkap": "Jl. Runi S Kabli No.10, Hutuo, Kec. Limboto, Kabupaten Gorontalo, Gorontalo 96137",
+    "Foto": "",
+    "Kategori": "Rumah Sakit",
+    "Link Google Maps": "https://maps.app.goo.gl/MeL2nG48Fs7YWoGw7",
+    "Nomor Telp/WhatsApp": "081242660102"
+  },
+  {
+    "Nama Tempat": "RSUD Professor Aloei Saboe",
+    "Alamat Lengkap": "Jl. Prof. Dr. H Jl. Prof. Dr. Aloe Saboe No.92, Wongkaditi, Kec. Kota Utara, Kota Gorontalo, Gorontalo 96122",
+    "Foto": "",
+    "Kategori": "Rumah Sakit",
+    "Link Google Maps": "https://maps.app.goo.gl/pWi1AmK45ovkp4y38",
+    "Nomor Telp/WhatsApp": ""
+  }
+]

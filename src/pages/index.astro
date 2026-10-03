@@ -1,0 +1,66 @@
+---
+// Ganti URL di bawah dengan URL Google Apps Script Anda
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg8KQro9FxUUrSsUfGqKpcEAwrJ849OaaObn-9hhNyKN_To7oXkF3z2EkPK4L_enakEg/exec";
+
+let places = [];
+try {
+  const response = await fetch(SCRIPT_URL);
+  places = await response.json();
+} catch (error) {
+  console.error("Gagal mengambil data dari Google Sheets:", error);
+}
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yellow Pages Gorontalo - Godex</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">Direktori Usaha Gorontalo</h1>
+        <p class="text-gray-600">Temukan kontak dan alamat tempat usaha di Gorontalo.</p>
+      </div>
+      <a href="/tambah" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-md text-sm shadow-sm">
+        + Tambah Tempat
+      </a>
+    </div>
+
+    <!-- Grid Tempat Usaha -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {places && places.length > 0 ? (
+        places.map((place) => (
+          <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
+            <span class="text-xs font-semibold uppercase tracking-wide bg-blue-100 text-blue-800 px-2 py-1 rounded">
+              {place['Kategori']}
+            </span>
+            <h2 class="text-xl font-bold text-gray-800 mt-2">{place['Nama Tempat']}</h2>
+            <p class="text-gray-600 text-sm mt-1">{place['Alamat Lengkap']}</p>
+            
+            <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+              <span class="text-sm font-medium text-gray-700">No: {place['Nomor Telp']}</span>
+              
+              {place['Link Google Maps'] && (
+                <a 
+                  href={place['Link Google Maps']} 
+                  target="_blank" 
+                  class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded font-medium"
+                >
+                  Buka Maps &rarr;
+                </a>
+              )}
+            </div>
+          </div>
+        ))
+      ) : (
+        <p class="text-gray-500 col-span-2 text-center py-10">Belum ada data tempat usaha.</p>
+      )}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+
+---
+---
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Tempat Baru - Godex</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Tambah Tempat Usaha</h1>
+      <a href="/" class="text-sm text-indigo-600 hover:underline">&larr; Kembali</a>
+    </div>
+
+    <form id="addForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nama Tempat</label>
+        <input type="text" id="nama" required class="mt-1 w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 border-gray-300" placeholder="Contoh: Warkop Berkah" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Kategori</label>
+        <select id="kategori" required class="mt-1 w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 border-gray-300">
+          <option value="Kafe">Kafe</option>
+          <option value="Apotek">Apotek</option>
+          <option value="Hotel dan Penginapan">Hotel dan Penginapan</option>
+          <option value="Jasa Transportasi">Jasa Transportasi</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nomor Telepon / WA</label>
+        <input type="text" id="telp" required class="mt-1 w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 border-gray-300" placeholder="08xxxxxxxxxx" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
+        <textarea id="alamat" required class="mt-1 w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 border-gray-300" rows="3" placeholder="Jl. Sultan Botutihe..."></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Link Google Maps (Opsional)</label>
+        <input type="url" id="maps" class="mt-1 w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500 border-gray-300" placeholder="https://maps.app.goo.gl/..." />
+      </div>
+
+      <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-2 rounded-md font-semibold hover:bg-indigo-700 transition">
+        Simpan Data
+      </button>
+    </form>
+
+    <div id="statusMsg" class="mt-4 text-center text-sm font-medium hidden"></div>
+  </div>
+
+  <script>
+    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg8KQro9FxUUrSsUfGqKpcEAwrJ849OaaObn-9hhNyKN_To7oXkF3z2EkPK4L_enakEg/exec";
+
+    const form = document.getElementById('addForm') as HTMLFormElement;
+    const btn = document.getElementById('submitBtn') as HTMLButtonElement;
+    const msg = document.getElementById('statusMsg') as HTMLDivElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.innerText = "Lagi menyimpan...";
+      msg.classList.add('hidden');
+
+      const payload = {
+        "Nama Tempat": (document.getElementById('nama') as HTMLInputElement).value,
+        "Kategori": (document.getElementById('kategori') as HTMLSelectElement).value,
+        "Nomor Telp": (document.getElementById('telp') as HTMLInputElement).value,
+        "Alamat Lengkap": (document.getElementById('alamat') as HTMLTextAreaElement).value,
+        "Link Google Maps": (document.getElementById('maps') as HTMLInputElement).value
+      };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        msg.textContent = "Berhasil ditambahkan! Silakan cek halaman utama.";
+        msg.className = "mt-4 text-center text-sm font-medium text-green-600";
+        msg.classList.remove('hidden');
+        form.reset();
+      } catch (err) {
+        msg.textContent = "Gagal menyimpan data. Coba lagi.";
+        msg.className = "mt-4 text-center text-sm font-medium text-red-600";
+        msg.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Simpan Data";
+      }
+    });
+  </script>
+</body>
+</html>
